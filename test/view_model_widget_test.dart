@@ -22,8 +22,12 @@ class TestViewModelWidget extends ViewModelWidget<TestViewModel> {
   TestViewModelWidget({this.orderHandler});
 
   @override
-  void handleOrder(BuildContext context, ViewModelOrder order) {
-    return orderHandler?.call(order);
+  void handleOrder(
+    BuildContext context,
+    ViewModelOrder order,
+    TestViewModel viewModel,
+  ) {
+    return orderHandler?.call(order, viewModel);
   }
 
   @override
@@ -60,7 +64,7 @@ void main() {
       ViewModelProvider<TestViewModel>(
         create: (_) => vm,
         child: TestViewModelWidget(
-          orderHandler: (order) => handledOrders.add(order),
+          orderHandler: (order, viewModel) => handledOrders.add(order),
         ),
       ),
     );

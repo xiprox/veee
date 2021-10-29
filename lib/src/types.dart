@@ -13,4 +13,7 @@ typedef Widget ViewModelChildBuilder<T extends ViewModel>(
 );
 
 /// Function signature for [ViewModelOrder] handlers.
-typedef ViewModelOrderHandler(ViewModelOrder order);
+typedef ViewModelOrderHandler<T extends ViewModel>(
+  ViewModelOrder order,
+  T viewModel,
+);

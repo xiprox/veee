@@ -34,7 +34,9 @@ class _ViewModelBuilderState<T extends ViewModel>
     viewModel = context.vm<T>();
     viewModel.addListener(_onViewModelChange);
     if (widget.orderHandler != null) {
-      _ordersSubscription = viewModel.orders.listen(widget.orderHandler);
+      _ordersSubscription = viewModel.orders.listen((order) {
+        widget.orderHandler?.call(order, viewModel);
+      });
     }
   }
 

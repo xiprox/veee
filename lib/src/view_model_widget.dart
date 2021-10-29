@@ -9,7 +9,11 @@ abstract class ViewModelWidget<T extends ViewModel> extends Widget {
   @protected
   Widget build(BuildContext context, T viewModel);
 
-  void handleOrder(BuildContext context, ViewModelOrder order) {}
+  void handleOrder(
+    BuildContext context,
+    ViewModelOrder order,
+    T viewModel,
+  );
 
   @override
   _DataProviderElement<T> createElement() => _DataProviderElement<T>(this);
@@ -26,7 +30,9 @@ class _DataProviderElement<T extends ViewModel> extends ComponentElement {
     return Builder(
       builder: (context) {
         return ViewModelBuilder<T>(
-          orderHandler: (order) => widget.handleOrder(context, order),
+          orderHandler: (order, viewModel) {
+            widget.handleOrder(context, order, viewModel);
+          },
           builder: (context, viewModel, child) {
             return widget.build(context, viewModel);
           },

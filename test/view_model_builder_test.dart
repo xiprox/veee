@@ -52,7 +52,7 @@ void main() {
       ViewModelProvider<TestViewModel>(
         create: (_) => vm,
         child: ViewModelBuilder<TestViewModel>(
-          orderHandler: (order) => handledOrders.add(order),
+          orderHandler: (order, viewModel) => handledOrders.add(order),
           builder: (context, bloc, child) {
             return Text(bloc.text ?? '?');
           },
