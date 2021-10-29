@@ -17,7 +17,7 @@ class TestViewModel extends ViewModel {
 }
 
 class TestViewModelWidget extends ViewModelWidget<TestViewModel> {
-  final ViewModelOrderHandler? orderHandler;
+  final ViewModelOrderHandler<TestViewModel>? orderHandler;
 
   TestViewModelWidget({this.orderHandler});
 

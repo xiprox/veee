@@ -9,7 +9,7 @@ import 'view_model_provider.dart';
 class ViewModelBuilder<T extends ViewModel> extends StatefulWidget {
   final ViewModelChildBuilder<T> builder;
   final Widget? child;
-  final ViewModelOrderHandler? orderHandler;
+  final ViewModelOrderHandler<T>? orderHandler;
 
   const ViewModelBuilder({
     Key? key,
