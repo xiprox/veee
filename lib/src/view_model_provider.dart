@@ -14,7 +14,6 @@ class ViewModelProvider<T extends ViewModel> extends StatefulWidget {
   }) : super(key: key);
 
   static T find<T extends ViewModel>(BuildContext context) {
-    print('MVVM: Finding ViewModelProvider for $T');
     final provider = context
         .findAncestorWidgetOfExactType<ViewModelProviderInheritedWidget<T>>();
     if (provider == null) {
@@ -33,7 +32,6 @@ class _ViewModelProviderState<T extends ViewModel>
 
   @override
   void initState() {
-    print('MVVM: Creating ViewModel for $T');
     _viewModel = widget.create(context) as T;
     super.initState();
   }
@@ -46,7 +44,6 @@ class _ViewModelProviderState<T extends ViewModel>
 
   @override
   Widget build(BuildContext context) {
-    print('MVVM: Rebuilding ViewModelProvider: $this');
     return ViewModelProviderInheritedWidget(
       child: widget.child,
       viewModel: _viewModel,

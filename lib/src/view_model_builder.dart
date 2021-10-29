@@ -30,7 +30,6 @@ class _ViewModelBuilderState<T extends ViewModel>
   @override
   void initState() {
     super.initState();
-    print('MVVM: $this: initializing');
     viewModel = context.vm<T>();
     viewModel.addListener(_onViewModelChange);
     if (widget.orderHandler != null) {
@@ -42,20 +41,17 @@ class _ViewModelBuilderState<T extends ViewModel>
 
   @override
   void dispose() {
-    print('MVVM: $this: disposing');
     viewModel.removeListener(_onViewModelChange);
     _ordersSubscription?.cancel();
     super.dispose();
   }
 
   void _onViewModelChange() {
-    print('MVVM: $this: changed');
     setState(() {});
   }
 
   @override
   Widget build(BuildContext context) {
-    print('MVVM: $this: rebuilding');
     return widget.builder(
       context,
       viewModel,
