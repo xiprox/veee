@@ -8,6 +8,10 @@ export 'view_model_order.dart';
 
 /// A base ViewModel implementation.
 abstract class ViewModel extends ChangeNotifier {
+  ViewModel() {
+    onCreate();
+  }
+
   /// A Stream that notifies the View with orders for it to handle. This is used
   /// for things like navigating to a different route, showing a dialog, and
   /// similar, which the ViewModel can't handle due to lack of [BuildContext].
