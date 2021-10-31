@@ -3,12 +3,15 @@ import 'package:flutter/material.dart';
 import 'view_model.dart';
 import 'view_model_builder.dart';
 
+/// A [Widget] subclass to simplify the creationg of Widgets that use a
+/// [ViewModel] higher up in the widget tree.
 abstract class ViewModelWidget<T extends ViewModel> extends Widget {
   const ViewModelWidget({Key? key}) : super(key: key);
 
   @protected
   Widget build(BuildContext context, T viewModel);
 
+  /// Override this method to handle orders.
   void handleOrder(
     BuildContext context,
     ViewModelOrder order,

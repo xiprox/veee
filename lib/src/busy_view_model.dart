@@ -1,5 +1,6 @@
 import 'view_model.dart';
 
+/// A [ViewModel] that can be busy.
 mixin BusyViewModel on ViewModel {
   bool _isBusy = false;
   bool get isBusy => _isBusy;

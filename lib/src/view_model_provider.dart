@@ -3,8 +3,11 @@ import 'package:flutter/material.dart';
 import 'types.dart';
 import 'view_model.dart';
 
+/// A widget to provide a [ViewModel] to its descendants.
 class ViewModelProvider<T extends ViewModel> extends StatefulWidget {
+  /// Creator function to build a [ViewModel] to provide to descendants.
   final ViewModelCreator<T> create;
+
   final Widget child;
 
   const ViewModelProvider({
@@ -70,6 +73,7 @@ class ViewModelProviderInheritedWidget<T extends ViewModel>
   }
 }
 
+/// Extension method on [BuildContext] to make it easier to access [ViewModel]s.
 extension BuildContextViewModelProviderExt on BuildContext {
   T vm<T extends ViewModel>() => ViewModelProvider.find<T>(this);
 }
