@@ -4,16 +4,10 @@ Veee is a simple MVVM package for Flutter without many bells and whistles. It's 
 
 The main reason I'm putting it up on GitHub is to host it for the apps I'm working on. It's not very well documented. You probably don't want to use it. However, if you stumbled upon it and have some opinions, or tried it and faced issues, I'd be happy to hear.
 
-```yaml
-dependencies:
-  # ...
-  veee:
-    git:
-      url: https://github.com/xiprox/veee
-      ref: main
-```
+## Install
+See the [install page](https://pub.dev/packages/veee/install).
 
-## How it looks
+## How it works
 
 ```dart
 
