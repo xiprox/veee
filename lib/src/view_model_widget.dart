@@ -16,7 +16,7 @@ abstract class ViewModelWidget<T extends ViewModel> extends Widget {
     BuildContext context,
     ViewModelOrder order,
     T viewModel,
-  );
+  ) {}
 
   @override
   _DataProviderElement<T> createElement() => _DataProviderElement<T>(this);
