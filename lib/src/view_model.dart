@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/foundation.dart';
+import 'package:rxdart/subjects.dart';
 
 import 'view_model_order.dart';
 
@@ -20,10 +21,13 @@ abstract class ViewModel extends ChangeNotifier {
   /// Or just use [ViewModelWidget], which handles subscribing to this stream,
   /// provides a nice API for defining event handling, and cancels subscription
   /// for you.
+  ///
+  /// We use [ReplaySubject] here because we want to get orders emitted before
+  /// the subscribing widget was built (e.g. in [onCreate]).
   @visibleForTesting
-  final orderController = StreamController<ViewModelOrder>.broadcast();
+  final orderController = ReplaySubject<ViewModelOrder>();
 
-  Stream<ViewModelOrder> get orders => orderController.stream;
+  Stream<ViewModelOrder> get orders => orderController.asBroadcastStream();
 
   /// Called only once when the ViewModel is created.
   void onCreate() {}
