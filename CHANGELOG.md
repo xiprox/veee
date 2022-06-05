@@ -1,3 +1,6 @@
+## 0.9.3
+- Rename `viewModel` parameters to `vm`.
+
 ## 0.9.2
 - Switch to `ReplaySubject` for ViewModel orders to handle situations where an order is emitted before a subscribing widget is built.
 
