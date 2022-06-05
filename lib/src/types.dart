@@ -8,12 +8,12 @@ typedef T ViewModelCreator<T extends ViewModel>(BuildContext context);
 /// Function signature for building children of [ViewModelBuilder]s
 typedef Widget ViewModelChildBuilder<T extends ViewModel>(
   BuildContext context,
-  T viewModel,
+  T vm,
   Widget child,
 );
 
 /// Function signature for [ViewModelOrder] handlers.
 typedef ViewModelOrderHandler<T extends ViewModel>(
   ViewModelOrder order,
-  T viewModel,
+  T vm,
 );
