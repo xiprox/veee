@@ -53,8 +53,8 @@ void main() {
         create: (_) => vm,
         child: ViewModelBuilder<TestViewModel>(
           orderHandler: (order, viewModel) => handledOrders.add(order),
-          builder: (context, bloc, child) {
-            return Text(bloc.text ?? '?');
+          builder: (context, vm, child) {
+            return Text(vm.text ?? '?');
           },
         ),
       ),
@@ -75,7 +75,7 @@ void main() {
       ViewModelProvider<TestViewModel>(
         create: (_) => vm,
         child: ViewModelBuilder<TestViewModel>(
-          builder: (context, bloc, child) {
+          builder: (context, vm, child) {
             return child;
           },
           child: Container(key: key),
