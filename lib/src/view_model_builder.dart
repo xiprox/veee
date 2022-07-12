@@ -30,26 +30,28 @@ class ViewModelBuilder<T extends ViewModel> extends StatefulWidget {
 
 class _ViewModelBuilderState<T extends ViewModel>
     extends State<ViewModelBuilder<T>> {
-  late T viewModel;
+  T? viewModel;
   StreamSubscription? _ordersSubscription;
 
   @override
-  void initState() {
-    super.initState();
-    viewModel = context.vm<T>();
-    viewModel.addListener(_onViewModelChange);
+  void dispose() {
+    _detachFromCurrentViewModel();
+    super.dispose();
+  }
+
+  void _attachToNewViewModel(T vm) {
+    viewModel = vm;
+    viewModel!.addListener(_onViewModelChange);
     if (widget.orderHandler != null) {
-      _ordersSubscription = viewModel.orders.listen((order) {
-        widget.orderHandler?.call(order, viewModel);
+      _ordersSubscription = viewModel!.orders.listen((order) {
+        widget.orderHandler?.call(order, viewModel!);
       });
     }
   }
 
-  @override
-  void dispose() {
-    viewModel.removeListener(_onViewModelChange);
+  void _detachFromCurrentViewModel() {
+    viewModel?.removeListener(_onViewModelChange);
     _ordersSubscription?.cancel();
-    super.dispose();
   }
 
   void _onViewModelChange() {
@@ -58,9 +60,15 @@ class _ViewModelBuilderState<T extends ViewModel>
 
   @override
   Widget build(BuildContext context) {
+    final latestViewModel = context.vm<T>(listen: true);
+    if (latestViewModel != viewModel) {
+      _detachFromCurrentViewModel();
+      _attachToNewViewModel(latestViewModel);
+    }
+
     return widget.builder(
       context,
-      viewModel,
+      viewModel!,
       widget.child ?? SizedBox.shrink(),
     );
   }

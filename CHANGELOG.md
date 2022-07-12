@@ -1,3 +1,6 @@
+## 0.10.0
+- Added the ability to pass `dependencies` to `ViewModelProvider` which when changed, will recreate the `ViewModel`.
+
 ## 0.9.3
 - Rename `viewModel` parameters to `vm`.
 

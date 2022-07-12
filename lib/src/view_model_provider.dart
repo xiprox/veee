@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 import 'types.dart';
@@ -10,15 +11,29 @@ class ViewModelProvider<T extends ViewModel> extends StatefulWidget {
 
   final Widget child;
 
+  /// List of properties, which when changed, should cause the [ViewModel] to
+  /// be recreated.
+  final List<dynamic> dependencies;
+
   const ViewModelProvider({
     Key? key,
     required this.create,
     required this.child,
+    this.dependencies = const [],
   }) : super(key: key);
 
-  static T find<T extends ViewModel>(BuildContext context) {
-    final provider = context
-        .findAncestorWidgetOfExactType<ViewModelProviderInheritedWidget<T>>();
+  static T find<T extends ViewModel>(
+    BuildContext context, {
+    bool listen = false,
+  }) {
+    ViewModelProviderInheritedWidget<T>? provider;
+    if (listen) {
+      provider = context.dependOnInheritedWidgetOfExactType<
+          ViewModelProviderInheritedWidget<T>>();
+    } else {
+      provider = context
+          .findAncestorWidgetOfExactType<ViewModelProviderInheritedWidget<T>>();
+    }
     if (provider == null) {
       throw 'No ViewModelProvider found for $T';
     }
@@ -35,7 +50,7 @@ class _ViewModelProviderState<T extends ViewModel>
 
   @override
   void initState() {
-    _viewModel = widget.create(context) as T;
+    _createViewModel();
     super.initState();
   }
 
@@ -43,6 +58,18 @@ class _ViewModelProviderState<T extends ViewModel>
   void dispose() {
     _viewModel.dispose();
     super.dispose();
+  }
+
+  @override
+  void didUpdateWidget(covariant ViewModelProvider<ViewModel> oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (!listEquals(oldWidget.dependencies, widget.dependencies)) {
+      _createViewModel();
+    }
+  }
+
+  void _createViewModel() {
+    _viewModel = widget.create(context) as T;
   }
 
   @override
@@ -75,5 +102,6 @@ class ViewModelProviderInheritedWidget<T extends ViewModel>
 
 /// Extension method on [BuildContext] to make it easier to access [ViewModel]s.
 extension BuildContextViewModelProviderExt on BuildContext {
-  T vm<T extends ViewModel>() => ViewModelProvider.find<T>(this);
+  T vm<T extends ViewModel>({bool listen = false}) =>
+      ViewModelProvider.find<T>(this, listen: listen);
 }

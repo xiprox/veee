@@ -1,6 +1,6 @@
 name: veee
 description: A Flutter package that provides a simple MVVM framework.
-version: 0.9.3
+version: 0.10.0
 homepage: https://github.com/xiprox/veee
 
 environment:
